@@ -376,23 +376,6 @@ The ens5 interface is the host's external interface. Our host IP is within the 1
 routable over the internet. Because all of the lab machines were created within the same VPC they can reach each other
 within the cloud. Ask your neighbor for their private (host) IP address and try to ping it:
 
-> N.B. There are many machines in this lab environment and they are spread across multiple VPCs. If you can not ping
-> your neighbor's private IP, they are in a different VPC, try their public IP.
-
-```
-ubuntu@ip-172-31-24-84:~$ ping -c 3 172.31.24.122
-
-PING 172.31.24.122 (172.31.24.122) 56(84) bytes of data.
-64 bytes from 172.31.24.122: icmp_seq=1 ttl=63 time=0.388 ms
-64 bytes from 172.31.24.122: icmp_seq=2 ttl=63 time=0.230 ms
-64 bytes from 172.31.24.122: icmp_seq=3 ttl=63 time=0.232 ms
-
---- 172.31.24.122 ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2044ms
-rtt min/avg/max/mdev = 0.230/0.283/0.388/0.074 ms
-
-ubuntu@ip-172-31-24-84:~$
-```
 
 
 #### The Pod Network - Pod IP
