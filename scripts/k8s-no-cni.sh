@@ -62,11 +62,11 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 sudo apt-get update
-sudo apt-get install -y kubeadm
+sudo apt-get install -y kubeadm kubelet kubectl conntrack
 sudo swapoff -a
 K8S_VERSION=1.30.0
 if [ -z ${K8S_VERSION+x} ]; then K8S_VERSION="--kubernetes-version=stable-1" ; else K8S_VERSION="--kubernetes-version=$K8S_VERSION"; fi
-sudo kubeadm init --ignore-preflight-errors=FileExisting-conntrack --cri-socket=unix:///var/run/containerd/containerd.sock $K8S_VERSION  --pod-network-cidr=10.128.0.0/16
+sudo kubeadm init  --cri-socket=unix:///var/run/containerd/containerd.sock $K8S_VERSION  --pod-network-cidr=10.128.0.0/16
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
