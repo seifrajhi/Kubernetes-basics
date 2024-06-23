@@ -77,7 +77,7 @@ to stand up a Kubernetes cluster. Run the RX-M K8s install script as follows:
 > N.B. This will take a minute or two.
 
 ```
-ubuntu@ip-172-31-24-84:~$ curl https://raw.githubusercontent.com/RX-M/classfiles/master/k8s-no-cni.sh | sh
+ubuntu@ip-172-31-24-84:~$ curl https://raw.githubusercontent.com/seifrajhi/Kubernetes-basics/main/scripts/k8s-no-cni.sh | sh
 
 
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -97,8 +97,10 @@ Then you can join any number of worker nodes by running the following on each as
 
 kubeadm join 172.31.24.84:6443 --token e29j76.vgcjt3mkfpe6s50h \
         --discovery-token-ca-cert-hash sha256:4b71b7abad35eedf9846be61f513d329a1783cd840f4ebddaf536b411b3ce91e
-node/ip-172-31-24-84 untainted
-node/ip-172-31-24-84 untainted
+
+
+crictl
+runtime-endpoint: unix:///run/containerd/containerd.sock
 
 ubuntu@ip-172-31-24-84:~$
 ```
@@ -215,6 +217,22 @@ Image versions    cilium             quay.io/cilium/cilium:v1.11.4@sha256:d9d4c7
                   cilium-operator    quay.io/cilium/operator-generic:v1.11.4@sha256:bf75ad0dc47691a3a519b8ab148ed3a792ffa2f1e309e6efa955f30a40e95adc: 1
 
 ubuntu@ip-172-31-24-84:~$
+```
+
+You can also install Cilium using Helm.
+PS: Helm can be  installed using [this script](./scripts/install-Helm.sh)
+
+Setup Helm repository:
+
+```
+helm repo add cilium https://helm.cilium.io/
+```
+
+Deploy Cilium release via Helm:
+
+```
+helm install cilium cilium/cilium --version 1.15.6 \
+  --namespace kube-system
 ```
 
 Sweet. Cilium is happy so we're happy.
